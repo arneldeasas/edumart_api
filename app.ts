@@ -1,13 +1,14 @@
 import * as express from "express";
 import { userController } from "./src/controllers/userController";
-import {Request,Response } from "express";
+import { Request, Response } from "express";
+const cors = require('cors');
 const app = express();
 const port = 8000;
 
-
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true }))
-app.get("/", (req:Request, res:Response) => {
+app.use(cors())
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true }));
+app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });
 

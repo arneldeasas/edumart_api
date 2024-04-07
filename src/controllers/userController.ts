@@ -1,14 +1,21 @@
 import { Request, Response } from "express";
 import { User } from "../types/user";
+import { db } from "../utils/dbServer";
 
 const createUser = async (req: Request, res: Response) => {
   try {
-    const user:User = req.body ;
-    console.log(user.email);
-    
-    res.json(user).status(200);
-  } catch (error) {
-    res.json(error).status(500);
+    let user = req.body;
+    console.log(user);
+
+    delete user.confirmPassword;
+    const newUser = await db?.user.create({
+      data: user,
+    });
+    console.log('EYYYY',newUser);
+  
+    res.json(newUser).status(200);
+  } catch (error:any) {
+    res.status(400).json(error)
   }
 };
 
